@@ -9,12 +9,9 @@ def validaCpf ():
         resultadoValidacao = cpfValidador.validate(cpf)
 
         if (resultadoValidacao):
-            #ver máscara masc
-            #ver um modo de tirar os pontos caso ele digite os pontos
-            #alguma função como o replace
-
             cpfFormatado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
             return cpfFormatado
+
         else:
             print("CPF inválido, digite novamente: ")
 

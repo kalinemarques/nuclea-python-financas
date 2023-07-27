@@ -4,7 +4,6 @@ from utils.validaCpf import validaCpf
 from utils.validaData import validaDataNascimento
 from utils.validaRg import validaRg
 
-
 validador = True
 listaCiente = []
 

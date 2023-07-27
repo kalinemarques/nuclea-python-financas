@@ -7,7 +7,6 @@ def retornaMenuPrincipal():
         retornaMenu = False
     return retornaMenu
 
-#fazer o try catch
 
 
 def formataTexto(texto):
