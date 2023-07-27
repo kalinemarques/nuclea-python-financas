@@ -12,4 +12,3 @@ def retornaMenuPrincipal():
 def formataTexto(texto):
     nomeFormatado = texto.title()
     return nomeFormatado
-

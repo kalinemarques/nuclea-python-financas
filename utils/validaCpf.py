@@ -14,4 +14,3 @@ def validaCpf ():
 
         else:
             print("CPF inválido, digite novamente: ")
-
