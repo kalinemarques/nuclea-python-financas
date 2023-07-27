@@ -1,6 +1,9 @@
+from utils.cep import buscaCep
 from utils.funcoesAuxiliares import formataTexto, retornaMenuPrincipal
 from utils.validaCpf import validaCpf
+from utils.validaData import validaDataNascimento
 from utils.validaRg import validaRg
+
 
 validador = True
 listaCiente = []
@@ -11,7 +14,6 @@ while(validador):
     print("1 - Cadastar cliente\n2 - Cadastrar ação\n3 - Realizar análise da carteira\n4 - Imprimir relatório da carteira\n5 - Sair")
     opcao = int(input("Digite a opção desejada:"))
 
-
     if (opcao == 1):
         print("\nInsira os dados do cliente.")
 
@@ -19,8 +21,8 @@ while(validador):
             "Nome": formataTexto(input("Nome: ")),
             "cpf": validaCpf(),
             "rg": validaRg(),
-            "Data de nascimento": input("Data de nascimento: "),
-            "cep": input("CEP: "),
+            "Data de nascimento": validaDataNascimento(),
+            "Endereço": buscaCep(),
             "Número da casa": input("Número da casa: ")
         }
 

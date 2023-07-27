@@ -19,3 +19,7 @@ def validaRg():
             return rg
         else:
             print("RG inválido, digite novamente: ")
+
+
+if __name__ == "__main__":
+    validaRg()
