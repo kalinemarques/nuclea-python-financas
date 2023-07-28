@@ -1,5 +1,5 @@
 from utils.cep import buscaCep
-from utils.funcoesAuxiliares import formataTexto, retornaMenuPrincipal
+from utils.funcoesAuxiliares import formataTexto, retornaMenuPrincipal, imprimiDados
 from utils.validaCpf import validaCpf
 from utils.validaData import validaDataNascimento
 from utils.validaRg import validaRg
@@ -18,15 +18,15 @@ while(validador):
 
         dadosCliente = {
             "Nome": formataTexto(input("Nome: ")),
-            "cpf": validaCpf(),
-            "rg": validaRg(),
+            "CPF": validaCpf(),
+            "RG": validaRg(),
             "Data de nascimento": validaDataNascimento(),
             "Endereço": buscaCep(),
-            "Número da casa": input("Número da casa: ")
         }
 
         listaCiente.append(dadosCliente)
-        print(listaCiente)
+
+        imprimiDados(listaCiente)
 
         validador = retornaMenuPrincipal()
 

@@ -12,3 +12,17 @@ def retornaMenuPrincipal():
 def formataTexto(texto):
     nomeFormatado = texto.title()
     return nomeFormatado
+
+
+def imprimiDados (lista):
+    print()
+    for cliente in lista:
+        for chave, dado in cliente.items():
+            if isinstance(dado, dict):
+                print(f'{dado}')
+                for subChave, subDado in dado.items():
+                    print(f'{subChave}: {subDado}')
+            else:
+                print(f'{chave}: {dado}')
+
+        print("______________________________________")

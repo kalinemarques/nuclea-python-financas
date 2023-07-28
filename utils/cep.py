@@ -1,11 +1,51 @@
 import requests
 
 
-def buscaCep(cep):
-    url = f"http://viacep.com.br/ws/{cep}/json/"
-    response = requests.get(url)
+def buscaCep():
+    while True:
+        cep = input("Digite seu CEP: ")
+        try:
+            url = f"http://viacep.com.br/ws/{cep}/json/"
+            response = requests.get(url)
 
-    print(response.text)
+            endereco = {
+                "CEP": response.json().get("cep", ""),
+                "Estado": response.json().get("uf", ""),
+                "Cidade": response.json().get("localidade", ""),
+                "Bairro": response.json().get("bairro", ""),
+                "Logradouro": response.json().get("logradouro", ""),
+            }
+
+            if (response.status_code == 200 and response.json().get("cep", "") != ""):
+                print()
+
+                for chave, valor in endereco.items():
+                    print(f'{chave}: {valor}')
+
+                valida = True
+                while (valida):
+                    corrige = input("\nDeseja alterar o CEP? ").upper()
+
+                    if (corrige == "NÃO" or corrige == "NAO"):
+                        endereco["Número da casa"] = input("Número da casa: ")
+                        return endereco
+                        valida = False
+
+                    elif (corrige == "SIM"):
+                        valida = False
+
+                    else:
+                        print("Entrada inválida, digite novamente.")
+
+
+            else:
+                print("CEP inválido, digite novamente.")
+
+        except:
+            print("CEP inválido, digite novamente.")
+
+
 
 if __name__=="__main__":
-    buscaCep("59296238")
+    buscaCep()
+
