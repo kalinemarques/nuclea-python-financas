@@ -14,20 +14,22 @@ def buscaCep():
                 "Cidade": response.json().get("localidade", ""),
                 "Bairro": response.json().get("bairro", ""),
                 "Logradouro": response.json().get("logradouro", ""),
+                "Número da casa": input("Número da casa: ")
             }
 
+
             if (response.status_code == 200 and response.json().get("cep", "") != ""):
-                print()
+                print("\nVerifique se os dados estão corretos.")
 
                 for chave, valor in endereco.items():
                     print(f'{chave}: {valor}')
 
                 valida = True
                 while (valida):
-                    corrige = input("\nDeseja alterar o CEP? ").upper()
+                    corrige = input("\nDeseja alterar o endereço? ").upper()
 
                     if (corrige == "NÃO" or corrige == "NAO"):
-                        endereco["Número da casa"] = input("Número da casa: ")
+
                         return endereco
                         valida = False
 

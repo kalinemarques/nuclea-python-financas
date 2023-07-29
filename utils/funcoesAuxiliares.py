@@ -1,11 +1,24 @@
 def retornaMenuPrincipal():
-    menu = input("\nDeseja retornar para o menu principal?").upper()
+    verifica = True
+    while verifica:
+        menu = input("\nDeseja retornar para o menu principal? " ).upper()
+        try:
+            if (menu == "SIM"):
+                retornaMenu = True
+                verifica = False
 
-    if (menu == "SIM"):
-        retornaMenu = True
-    elif (menu == "NÃO"):
-        retornaMenu = False
-    return retornaMenu
+            elif (menu == "NÃO" or menu == "NAO"):
+                retornaMenu = False
+                verifica =False
+            return retornaMenu
+
+        except:
+            print("Entrada inválida, digite novamente.")
+
+
+
+if __name__=="__main__":
+    retornaMenuPrincipal()
 
 
 
@@ -19,7 +32,7 @@ def imprimiDados (lista):
     for cliente in lista:
         for chave, dado in cliente.items():
             if isinstance(dado, dict):
-                print(f'{dado}')
+                print(f'{chave}')
                 for subChave, subDado in dado.items():
                     print(f'{subChave}: {subDado}')
             else:
