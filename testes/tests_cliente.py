@@ -8,7 +8,6 @@ from utils.validaCpf import geraCpf
 
 
 class TestStringMethods(unittest.TestCase):
-    pass
 
 
     def gerarNomeFake(self):
@@ -19,7 +18,7 @@ class TestStringMethods(unittest.TestCase):
     def testCliente(self):
         nome = self.gerarNomeFake()
         cpf = geraCpf()
-        inputs = ["1", nome, cpf, "12.345.647-x", "12/02/2001", "05003-060", "42", "não", "não"]
+        inputs = ["1", nome, cpf, "12.345.647-x", "12/02/2001", "59296-238", "Casa", "42", "não", "não"]
 
         with patch("builtins.input", side_effect = inputs):
             main()
@@ -30,15 +29,16 @@ class TestStringMethods(unittest.TestCase):
             "RG": "12.345.647-x",
             "Data de nascimento": "12/02/2001",
             "Endereço": {
-                "CEP": "05003-060",
-                "Estado": "SP",
-                "Cidade": "São Paulo",
-                "Bairro": "Água Branca",
-                "Logradouro": "Rua Higino Pellegrini",
-                "Número da casa": "48"
+                "CEP": "59296-238",
+                "Estado": "RN",
+                "Cidade": "São Gonçalo do Amarante",
+                "Bairro": "Novo Amarante",
+                "Logradouro": "Rua Santa Bárbara",
+                "Complemento": "Casa",
+                "Número": "42"
             }
         }
 
 
-        #self.assertEquals(self.gerarNomeFake(),"batata")
+        self.assertIn(clienteEsperado, listaCiente)
 

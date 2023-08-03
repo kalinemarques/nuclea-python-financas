@@ -1,4 +1,4 @@
-from utils.cep import buscaCep
+from utils.cep import validaCep
 from utils.funcoesAuxiliares import formataTexto, retornaMenuPrincipal, imprimiDados
 from utils.validaCpf import validaCpf
 from utils.validaData import validaDataNascimento
@@ -25,7 +25,7 @@ def main():
                 "CPF": validaCpf(),
                 "RG": validaRg(),
                 "Data de nascimento": validaDataNascimento(),
-                "Endereço": buscaCep(),
+                "Endereço": validaCep(),
             }
 
             listaCiente.append(dadosCliente)
@@ -46,3 +46,8 @@ def main():
            print("Entrada inválida! Tente novamente.")
 
     print("\nObrigada por utilizar nossos serviços.")
+
+
+
+if __name__=="__main__":
+    main()
