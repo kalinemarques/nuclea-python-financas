@@ -1,4 +1,4 @@
-from utils.opcao import opcao1, opcao2
+from utils.opcao import opcao1, opcao2, opcao4
 
 
 def main():
@@ -17,7 +17,7 @@ def main():
         elif (opcao == 3):
             pass
         elif (opcao == 4):
-            pass
+            opcao4()
         elif (opcao == 5):
             validador = False
         else:

@@ -1,3 +1,4 @@
+from relatorio import obterDadosAcao
 from utils.cep import validaCep
 from utils.funcoesAuxiliares import formataTexto, imprimiDados, retornaMenuPrincipal, validaCompra, validaQunatidade, \
     validaId
@@ -64,6 +65,12 @@ def opcao2():
         imprimiDados(listaAcao)
 
         validaOpcao2 = retornaMenuPrincipal()
+
+
+def opcao4():
+    ticket = input("Digite o nome da ação: ")
+    nome_arquivo = input("Digite o nome do arquivo: ")
+    obterDadosAcao(ticket, nome_arquivo)
 
 
 if __name__=="__main__":
