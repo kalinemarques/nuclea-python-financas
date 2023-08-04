@@ -1,24 +1,25 @@
+
+
+
 def retornaMenuPrincipal():
     verifica = True
     while verifica:
         menu = input("\nDeseja retornar para o menu principal? " ).upper()
         try:
             if (menu == "SIM"):
-                retornaMenu = True
+                retornaMenu = False
                 verifica = False
 
             elif (menu == "NÃO" or menu == "NAO"):
-                retornaMenu = False
+                retornaMenu = True
                 verifica =False
-            return retornaMenu
-
         except:
             print("Entrada inválida, digite novamente.")
 
+    return retornaMenu
 
-
-if __name__=="__main__":
-    retornaMenuPrincipal()
+# if __name__=="__main__":
+#     retornaMenuPrincipal(True)
 
 
 
@@ -39,3 +40,39 @@ def imprimiDados (lista):
                 print(f'{chave}: {dado}')
 
         print("______________________________________")
+
+
+def validaCompra():
+    valida = True
+    while valida:
+        try:
+            valorCompra = float(input("Valor da compra: "))
+            valida = False
+        except:
+            print("Valor inválido. Digite novamente.")
+    return valorCompra
+
+
+def validaQunatidade():
+    valida = True
+    while valida:
+        try:
+            quantidadeComprada = int(input("Quantidade comprada: "))
+            valida = False
+        except:
+            print("Valor inválido. Digite novamente.")
+    return quantidadeComprada
+
+
+def validaId():
+    valida = True
+    while valida:
+        try:
+            idCliente = input("ID do cliente: ")
+            valida = False
+        except:
+            print("Valor inválido. Digite novamente.")
+    return idCliente
+
+if __name__=="__main__":
+    validaQunatidade()

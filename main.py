@@ -1,11 +1,4 @@
-from utils.cep import validaCep
-from utils.funcoesAuxiliares import formataTexto, retornaMenuPrincipal, imprimiDados
-from utils.validaCpf import validaCpf
-from utils.validaData import validaDataNascimento
-from utils.validaRg import validaRg
-
-
-listaCiente = []
+from utils.opcao import opcao1, opcao2
 
 
 def main():
@@ -14,28 +7,13 @@ def main():
     while(validador):
 
         print("Seja bem vindo(a) ao sistema de gerenciamento da carteira de ações da Nuclea.\nSelecione uma das opções abaixo:")
-        print("1 - Cadastar cliente\n2 - Cadastrar ação\n3 - Realizar análise da carteira\n4 - Imprimir relatório da carteira\n5 - Sair")
+        print("1 - Cliente\n2 - Cadastrar ação\n3 - Realizar análise da carteira\n4 - Imprimir relatório da carteira\n5 - Sair")
         opcao = int(input("Digite a opção desejada:"))
 
         if (opcao == 1):
-            print("\nInsira os dados do cliente.")
-
-            dadosCliente = {
-                "Nome": formataTexto(input("Nome: ")),
-                "CPF": validaCpf(),
-                "RG": validaRg(),
-                "Data de nascimento": validaDataNascimento(),
-                "Endereço": validaCep(),
-            }
-
-            listaCiente.append(dadosCliente)
-
-            imprimiDados(listaCiente)
-
-            validador = retornaMenuPrincipal()
-
+            opcao1()
         elif (opcao == 2):
-            pass
+            opcao2()
         elif (opcao == 3):
             pass
         elif (opcao == 4):

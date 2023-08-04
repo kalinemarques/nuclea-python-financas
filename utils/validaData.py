@@ -1,7 +1,8 @@
 from datetime import datetime
 
 
-def validaDataNascimento():
+
+def validaData():
     while True:
 
         dataNascimento = input("Data de nascimento: ")
@@ -14,11 +15,10 @@ def validaDataNascimento():
             if dataConvertida < dataAtual:
                 return dataConvertida.strftime("%d/%m/%Y")
             else:
-                print("A data de nascimento não pode ser maior que a data autual.")
+                print("A data não pode ser maior que a data autual.")
 
         except ValueError as e:
             print(e,"\nPor favor digite a data novamente.")
 
 
-if __name__ == "__main__":
-    validaDataNascimento()
+
