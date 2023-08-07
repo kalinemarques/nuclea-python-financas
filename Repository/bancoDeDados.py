@@ -2,21 +2,21 @@ import psycopg2
 import os
 
 
-
-
-
 class BancoDeDados:
 
 
     def __init__(self):
+
         self.connection = psycopg2.connect(**self.retornaParametrosConexaoBancoDeDados())
         self.cursor = self.connection.cursor()
+
 
 
 
     def __del__(self):
         self.cursor.close()
         self.connection.close()
+
 
 
     def insert(self,cliente):
@@ -33,25 +33,60 @@ class BancoDeDados:
             cliente['cpf'],
             cliente['rg'],
             cliente['data_nascimento'],
-            cliente['cep']['cep'],
-            cliente['cep']['logradouro'],
-            cliente['cep']['complemento'],
-            cliente['cep']['bairro'],
-            cliente['cep']['cidade'],
-            cliente['cep']['estado'],
-            cliente['cep']['numero_residencia']
+            cliente['endereco']['cep'],
+            cliente['endereco']['logradouro'],
+            cliente['endereco']['complemento'],
+            cliente['endereco']['bairro'],
+            cliente['endereco']['cidade'],
+            cliente['endereco']['estado'],
+            cliente['endereco']['numero_residencia']
         )
         self.cursor.execute(insertQuery, values)
         self.connection.commit()
 
-    def select(self, cliente):
-        print("Buscando clientes no banco de dados.")
-        selectQuery = f"SELECT * FROM CLIENTE where cpf ='"+ cliente['cpf']+"';"
-        self.cursor.execute(selectQuery)
+    def select(self, cpf):
+        print("Buscando cliente no banco de dados.")
+        selectQuery = f"SELECT * FROM CLIENTE where cpf = %s;"
+        self.cursor.execute(selectQuery, (cpf,))
         clientes = self.cursor.fetchall()
-        for cliente in clientes:
-            print(cliente)
+
         return clientes
+
+
+
+    def delete(self, cliente):
+        print("Deletando cliente do banco de dados.")
+        deleteQuery = f"DELETE FROM CLIENTE where cpf = %s;"
+        self.cursor.execute(deleteQuery, (cliente['cpf'],))
+        self.connection.commit()
+        print("Cliente deletado com sucesso!")
+
+
+    def update(self,cliente):
+        print("Atualizando cliente no banco de dados.")
+        updateQuery = f"""
+        UPDATE CLIENTE SET nome = %s, rg = %s, data_nascimento = %s, cep = %s, logradouro = %s,
+        complemento = %s, bairro = %s, cidade = %s, estado = %s, numero_residencia = %s
+        where cpf = %s;"""
+
+        endereco = cliente.get('endereco',{})
+        set = (
+            cliente['nome'],
+            cliente['rg'],
+            cliente['data_nascimento'],
+            endereco.get('cep', ''),
+            endereco.get('logradouro', ''),
+            endereco.get('complemento', ''),
+            endereco.get('bairro', ''),
+            endereco.get('cidade', ''),
+            endereco.get('estado', ''),
+            endereco.get('numero_residencia', ''),
+            cliente.get('cpf','')
+        )
+
+        self.cursor.execute(updateQuery, set)
+        self.connection.commit()
+        print("Cliente atualizado com sucesso!")
 
 
     def retornaParametrosConexaoBancoDeDados(self):
@@ -66,7 +101,8 @@ class BancoDeDados:
         return parametrosConexao
 
 
-conexao = BancoDeDados()
-cliente = {'cpf': "362.479.370-59"}
-conexao.select(cliente)
+
+
+
+
 

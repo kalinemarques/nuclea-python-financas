@@ -21,7 +21,7 @@ class TestClientes(unittest.TestCase):
     def testCliente(self):
         nome = self.gerarNomeFake()
         cpf = geraCpf()
-        inputs = ["1","1", nome, cpf, "12.345.647-x", "12/02/2001", "59296-238", "Casa", "42", "não", "sim","5"]
+        inputs = ["1", "1", nome, cpf, "12.345.647-x", "12/02/2001", "59296-238", "Casa", "42", "não", "sim", "5"]
 
         with patch("builtins.input", side_effect = inputs):
             main()

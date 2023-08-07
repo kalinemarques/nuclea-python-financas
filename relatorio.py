@@ -6,7 +6,12 @@ def obterDadosAcao(ticket, nome_arquivo):
 
         acao = yf.download(ticket + '.SA', progress = False)
 
-        with open(nome_arquivo,'w') as arquivo:
+        if not ticket.endswith(".txt"):
+            nome_arquivo = nome_arquivo + ".txt"
+        else:
+            nome_arquivo = nome_arquivo
+
+        with open(nome_arquivo, 'w') as arquivo:
             arquivo.write("Relatório da ação: " + ticket + '\n')
             arquivo.write(str(acao.tail()))
 

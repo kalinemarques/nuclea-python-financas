@@ -1,4 +1,4 @@
-from utils.opcao import opcao1, opcao2, opcao4
+from utils.opcao import opcao1, opcao2, opcao3, opcao4
 
 
 def main():
@@ -15,7 +15,7 @@ def main():
         elif (opcao == 2):
             opcao2()
         elif (opcao == 3):
-            pass
+            opcao3()
         elif (opcao == 4):
             opcao4()
         elif (opcao == 5):

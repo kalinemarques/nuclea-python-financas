@@ -1,12 +1,16 @@
+from Repository.bancoDeDados import BancoDeDados
+from carteira import analiseDaCarteira
+from models.cliente import Cliente
 from relatorio import obterDadosAcao
 from utils.cep import validaCep
 from utils.funcoesAuxiliares import formataTexto, imprimiDados, retornaMenuPrincipal, validaCompra, validaQunatidade, \
     validaId
 from utils.validaCpf import validaCpf
-from utils.validaData import validaData
+from utils.validaData import  validaDataNascimento, validaDataCompra
 from utils.validaRg import validaRg
 
 listaCliente = []
+listaAcao = []
 
 
 def opcao1():
@@ -18,34 +22,73 @@ def opcao1():
         if opcaoCliente == 1:
             print("\nInsira os dados do cliente.")
 
-            dadosCliente = {
-                "Nome": formataTexto(input("Nome: ")),
-                "CPF": validaCpf(),
-                "RG": validaRg(),
-                "Data de nascimento": validaData(),
-                "Endereço": validaCep(),
-            }
-
-            listaCliente.append(dadosCliente)
-
-            imprimiDados(listaCliente)
+            teste = Cliente()
+            cliente = dadosCliente()
+            teste.cadastrarCliente(cliente)
 
             validadorOpcao1 = retornaMenuPrincipal()
 
+
         elif opcaoCliente == 2:
-            print("SELECT")
+            print("CONSULTA")
+            print("Insira o CPF para buscar o cliente.")
+            busca = validaCpf()
+            teste = Cliente()
+            teste.consultarCliente(busca)
+            validadorOpcao1 = retornaMenuPrincipal()
+
         elif opcaoCliente == 3:
-            print("UPDATE")
+            print("ATUALIZAÇÃO")
+            print("Insira o CPF do cliente.")
+            busca = validaCpf()
+            teste = Cliente()
+            teste.consultarCliente(busca)
+            escolha = input("Deseja alterar os dados deste cliente?(sim/não)").upper()
+            valida = True
+            while valida:
+                if escolha == "SIM":
+                    print("Insira os dados do cliente.")
+                    clienteatualizado = clienteAtualizado()
+                    teste.alterarCliente(clienteatualizado)
+                    validadorOpcao1 = retornaMenuPrincipal()
+                    valida = False
+
+                elif escolha == "NÃO" or escolha == "NAO":
+                    validadorOpcao1 = retornaMenuPrincipal()
+                    valida = False
+
+                else:
+                    print("Opção inválida.")
+                    valida = True
+
         elif opcaoCliente == 4:
-            print("DELET")
+            print("DELETAR")
+            print("ATUALIZAÇÃO")
+            print("Insira o CPF do cliente.")
+            busca = validaCpf()
+            teste = Cliente()
+            teste.consultarCliente(busca)
+            escolha = input("Deseja deletar este cliente?(sim/não)").upper()
+            valida = True
+            while valida:
+                if escolha == "SIM":
+                    teste.deletarCliente(busca)
+                    validadorOpcao1 = retornaMenuPrincipal()
+                    valida = False
+
+                elif escolha == "NÃO" or escolha == "NAO":
+                    validadorOpcao1 = retornaMenuPrincipal()
+                    valida = False
+
+                else:
+                    print("Opção inválida.")
+                    valida = True
+
         elif opcaoCliente == 5:
             validadorOpcao1 = False
         else:
             print("operação inválida.")
 
-
-
-listaAcao = []
 
 
 
@@ -58,7 +101,7 @@ def opcao2():
             "Ticket": input("Ticket: "),
             "Valor da compra": validaCompra(),
             "Quantidade comprada": validaQunatidade(),
-            "Data da Compra": validaData(),
+            "Data da Compra": validaDataCompra(),
             "ID do cliente": validaId()
         }
         listaAcao.append(dadosOrdem)
@@ -68,10 +111,45 @@ def opcao2():
 
 
 def opcao4():
-    ticket = input("Digite o nome da ação: ")
-    nome_arquivo = input("Digite o nome do arquivo: ")
-    obterDadosAcao(ticket, nome_arquivo)
+    validaOpcao4 = True
+    while validaOpcao4:
+        print("RELATÓRIO DA CARTEIRA")
+        ticket = input("Digite o nome da ação: ").upper()
+        nome_arquivo = input("Digite o nome do arquivo: ")
+        obterDadosAcao(ticket, nome_arquivo)
+
+        validaOpcao4 = retornaMenuPrincipal()
+
+
+def opcao3():
+    validaOpcao3 = True
+    while validaOpcao3:
+        analiseDaCarteira()
+        validaOpcao3 = retornaMenuPrincipal()
+
+
+def dadosCliente():
+    dadosCliente = {
+        "nome": formataTexto(input("Nome: ")),
+        "cpf": validaCpf(),
+        "rg": validaRg(),
+        "data_nascimento": validaDataNascimento(),
+        "endereco": validaCep(),
+    }
+    return dadosCliente
+
+def clienteAtualizado():
+    dadosCliente = {
+        "nome": formataTexto(input("Nome: ")),
+        "rg": validaRg(),
+        "data_nascimento": validaDataNascimento(),
+        "endereco": validaCep(),
+    }
+    return dadosCliente
+
+
 
 
 if __name__=="__main__":
-    opcao2()
+    opcao1()
+

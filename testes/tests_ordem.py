@@ -29,7 +29,7 @@ class TestOrdem(unittest.TestCase):
     def testAcao(self):
         nome, ticket = self.geraAcaoFake()
         quantidade, valor = self.geraCompraFake()
-        inputs = ["2", nome, ticket, valor, quantidade, "25/02/2023",2, "sim", "5"]
+        inputs = ["2", nome, ticket, valor, quantidade, "25/02/2023", 2, "sim", "5"]
 
         with patch("builtins.input", side_effect=inputs):
             main()

@@ -24,16 +24,16 @@ def validaCep():
         try:
             response = buscaCepTeste(cep)
             endereco = {
-            "CEP": response.json().get("cep", ""),
-            "Estado": response.json().get("uf", ""),
-            "Cidade": response.json().get("localidade", ""),
-            "Bairro": response.json().get("bairro", ""),
-            "Logradouro": response.json().get("logradouro", "")
+            "cep": response.json().get("cep", ""),
+            "estado": response.json().get("uf", ""),
+            "cidade": response.json().get("localidade", ""),
+            "bairro": response.json().get("bairro", ""),
+            "logradouro": response.json().get("logradouro", "")
             }
 
             if (response.status_code == 200 and response.json().get("cep", "") != ""):
-                endereco["Complemento"] = input("Complemento: ")
-                endereco["Número"] = input("Número: ")
+                endereco["complemento"] = input("Complemento: ")
+                endereco["numero_residencia"] = input("Número: ")
 
                 print("\nVerifique se os dados estão corretos.")
 
