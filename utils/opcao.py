@@ -1,12 +1,13 @@
-from Repository.bancoDeDados import BancoDeDados
+
 from carteira import analiseDaCarteira
 from models.cliente import Cliente
+from models.ordem import Ordem
 from relatorio import obterDadosAcao
 from utils.cep import validaCep
 from utils.funcoesAuxiliares import formataTexto, imprimiDados, retornaMenuPrincipal, validaCompra, validaQunatidade, \
     validaId
 from utils.validaCpf import validaCpf
-from utils.validaData import  validaDataNascimento, validaDataCompra
+from utils.validaData import validaDataNascimento, validaDataCompra
 from utils.validaRg import validaRg
 
 listaCliente = []
@@ -24,6 +25,7 @@ def opcao1():
 
             teste = Cliente()
             cliente = dadosCliente()
+            listaCliente.append(cliente)
             teste.cadastrarCliente(cliente)
 
             validadorOpcao1 = retornaMenuPrincipal()
@@ -95,19 +97,20 @@ def opcao1():
 def opcao2():
     validaOpcao2 = True
     while validaOpcao2:
-        print("Insira os dados da ação.")
-        dadosOrdem = {
-            "Nome": input("Nome: "),
-            "Ticket": input("Ticket: "),
-            "Valor da compra": validaCompra(),
-            "Quantidade comprada": validaQunatidade(),
-            "Data da Compra": validaDataCompra(),
-            "ID do cliente": validaId()
-        }
-        listaAcao.append(dadosOrdem)
-        imprimiDados(listaAcao)
+        print("MENU ORDEM\n1 - Cadastrar ordem\n2 - Sair")
+        opcao = int(input("Escolha a opção: "))
+        if opcao == 1:
+            print("Insira os dados da ação.")
+            dados = dadosOrdem()
+            listaAcao.append(dados)
+            ordem = Ordem()
+            ordem.cadastrarOrdem(dados)
 
-        validaOpcao2 = retornaMenuPrincipal()
+            validaOpcao2 = retornaMenuPrincipal()
+        elif opcao == 2:
+            validaOpcao2 = False
+        else:
+            print("operação inválida.")
 
 
 def opcao4():
@@ -138,6 +141,7 @@ def dadosCliente():
     }
     return dadosCliente
 
+
 def clienteAtualizado():
     dadosCliente = {
         "nome": formataTexto(input("Nome: ")),
@@ -148,8 +152,17 @@ def clienteAtualizado():
     return dadosCliente
 
 
-
+def dadosOrdem():
+    dadosOrdem = {
+        "nome": input("Nome: "),
+        "ticket": input("Ticket: "),
+        "valor_compra": validaCompra(),
+        "quantidade_compra": validaQunatidade(),
+        "data_compra": validaDataCompra(),
+        "cliente_id": validaId()
+    }
+    return dadosOrdem
 
 if __name__=="__main__":
-    opcao1()
+    opcao2()
 

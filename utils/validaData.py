@@ -43,10 +43,10 @@ def validaDataCarteira():
 def validaDataCompra():
     while True:
 
-        data = input("Data da compra: ")
+        dataCompra = input("Data de compra: ")
 
         try:
-            dataConvertida = datetime.strptime(data, "%d/%m/%Y").date()
+            dataConvertida = datetime.strptime(dataCompra,"%d/%m/%Y").date()
 
             dataAtual = datetime.now().date()
 

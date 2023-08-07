@@ -1,0 +1,2 @@
+DELETE FROM public.cliente
+	WHERE cliente.cpf = '198.679.280-32';

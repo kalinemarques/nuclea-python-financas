@@ -17,7 +17,7 @@ class TestOrdem(unittest.TestCase):
         nome = fake.company()
         caracteres = string.ascii_uppercase + string.digits
         ticket = ''.join(random.choices(caracteres, k = 4))
-        return nome, ticket
+        return ticket
 
 
     def geraCompraFake(self):
@@ -27,20 +27,22 @@ class TestOrdem(unittest.TestCase):
         return quantidade, valor
 
     def testAcao(self):
-        nome, ticket = self.geraAcaoFake()
+        nome = "teste"
+        ticket = self.geraAcaoFake()
         quantidade, valor = self.geraCompraFake()
-        inputs = ["2", nome, ticket, valor, quantidade, "25/02/2023", 2, "sim", "5"]
+
+        inputs = ["2", "1", nome, ticket, valor, quantidade, "25/02/2023", "16", "sim", "5"]
 
         with patch("builtins.input", side_effect=inputs):
             main()
 
         OrdemEsperada = {
-            "Nome": nome,
-            "Ticket": ticket,
-            "Valor da compra": valor,
-            "Quantidade comprada": quantidade,
-            "Data da Compra":  "25/02/2023",
-            "ID do cliente": 2
+            "nome": nome,
+            "ticket": ticket,
+            "valor_compra": valor,
+            "quantidade_compra": quantidade,
+            "data_compra":  "25/02/2023",
+            "cliente_id": "16"
         }
 
         self.assertIn(OrdemEsperada, listaAcao)

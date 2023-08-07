@@ -1,11 +1,11 @@
-from Repository.bancoDeDados import BancoDeDados
-from utils.funcoesAuxiliares import imprimiDados
+from Repository.bancodeDadosCliente import BancoDeDadosCliente
+import pandas as pd
 
 
 class Cliente:
 
     def __init__(self):
-        self.bancoDeDados = BancoDeDados()
+        self.bancoDeDados = BancoDeDadosCliente()
         self.cpf = None
         self.nome = None
         self.rg = None
@@ -32,32 +32,19 @@ class Cliente:
         self.estado = cliente['endereco']['estado']
         self.numero_residencia = cliente['endereco']['numero_residencia']
 
-        cliente_data = {
-            'cpf': self.cpf,
-            'nome': self.nome,
-            'rg': self.rg,
-            'data_nascimento': self.data_nascimento,
-            'endereco': {
-                'cep': self.cep,
-                'logradouro': self.logradouro,
-                'complemento': self.complemento,
-                'bairro': self.bairro,
-                'cidade': self.cidade,
-                'estado': self.estado,
-                'numero_residencia': self.numero_residencia
-            }
-        }
-        self.bancoDeDados.insert(cliente_data)
+        with self.bancoDeDados:
+            self.bancoDeDados.insert(cliente)
         print("Cliente cadastrdo com sucesso!")
 
 
     def consultarCliente(self,cpf):
-        cliente_data = self.bancoDeDados.select(cpf)
-        if cliente_data:
-            print("Cliente encontrado:")
-            print(cliente_data)
-        else:
-            print("Cliente não encontrado.")
+        with self.bancoDeDados:
+            cliente_data = self.bancoDeDados.select(cpf)
+            if cliente_data:
+                print("Cliente encontrado:")
+                print(cliente_data)
+            else:
+                print("Cliente não encontrado.")
 
 
     def alterarCliente(self, cliente):
@@ -76,9 +63,30 @@ class Cliente:
             'estado': endereco['estado'],
             'numero_residencia': endereco['numero_residencia']
         }
-        self.bancoDeDados.update(cliente_data)
+        with self.bancoDeDados:
+            self.bancoDeDados.update(cliente_data)
 
 
     def deletarCliente(self,cpf):
         cliente = {'cpf': cpf}
-        self.bancoDeDados.delete(cliente)
+        with self.bancoDeDados:
+            self.bancoDeDados.delete(cliente)
+
+
+
+    def buscarOrdensPorCliente(self, cpf):
+
+        with self.bancoDeDados:
+            self.bancoDeDados.buscarOrdensPorCpfCliente(cpf)
+
+
+    def exibirOrdensPorCpfCliente(self, cpf):
+            with self.bancoDeDados:
+                ordens = self.bancoDeDados.buscarOrdensPorCpfCliente(cpf)
+
+                if ordens:
+                    df = pd.DataFrame(ordens,
+                                      columns=['Nome', 'Ticket', 'Valor Compra', 'Quantidade Compra', 'Data Compra'])
+                    print(df)
+                else:
+                    print("Nenhuma ordem encontrada para o cliente.")

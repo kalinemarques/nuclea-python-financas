@@ -46,10 +46,11 @@ def validaCompra():
     valida = True
     while valida:
         try:
-            valorCompra = float(input("Valor da compra: "))
+            valorCompra = float(input("Valor da compra: ").replace(',', '.'))
+
             valida = False
         except:
-            print("Valor inválido. Digite novamente.")
+            print("Valor de compra inválido. Digite novamente.")
     return valorCompra
 
 
@@ -58,9 +59,10 @@ def validaQunatidade():
     while valida:
         try:
             quantidadeComprada = int(input("Quantidade comprada: "))
+
             valida = False
         except:
-            print("Valor inválido. Digite novamente.")
+            print("Valor de quantidade inválido. Digite novamente.")
     return quantidadeComprada
 
 
@@ -68,11 +70,11 @@ def validaId():
     valida = True
     while valida:
         try:
-            idCliente = input("ID do cliente: ")
+            idCliente = int(input("ID do cliente: "))
             valida = False
         except:
-            print("Valor inválido. Digite novamente.")
+            print("Valor de ID inválido. Digite novamente.")
     return idCliente
 
 if __name__=="__main__":
-    validaQunatidade()
+    validaCompra()

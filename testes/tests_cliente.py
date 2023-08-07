@@ -27,18 +27,18 @@ class TestClientes(unittest.TestCase):
             main()
 
         clienteEsperado = {
-            "Nome": nome,
-            "CPF": f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}",
-            "RG": "12.345.647-x",
-            "Data de nascimento": "12/02/2001",
-            "Endereço": {
-                "CEP": "59296-238",
-                "Estado": "RN",
-                "Cidade": "São Gonçalo do Amarante",
-                "Bairro": "Novo Amarante",
-                "Logradouro": "Rua Santa Bárbara",
-                "Complemento": "Casa",
-                "Número": "42"
+            "nome": nome,
+            "cpf": f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}",
+            "rg": "12.345.647-x",
+            "data_nascimento": "12/02/2001",
+            "endereco": {
+                "cep": "59296-238",
+                "estado": "RN",
+                "cidade": "São Gonçalo do Amarante",
+                "bairro": "Novo Amarante",
+                "logradouro": "Rua Santa Bárbara",
+                "complemento": "Casa",
+                "numero_residencia": "42"
             }
         }
 
